@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crash Prediction VIP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      overflow: hidden;
+    }
+
+    .login-screen, .main-site {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .login-screen {
+      display: flex;
+      background: rgba(0,0,0,0.8);
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00c6ff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    .prediction-box {
+      border: 2px solid #00ffea;
+      border-radius: 15px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      font-size: 18px;
+      margin: 20px auto;
+      max-width: 400px;
+    }
+
+    .avion-img {
+      width: 80px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      font-size: 14px;
+      font-style: italic;
+      color: #888;
+    }
+
+    .colorful-text {
+      background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+      font-size: 22px;
+      animation: wave 5s linear infinite;
+    }
+
+    @keyframes wave {
+      0% { background-position: 0% }
+      100% { background-position: 200% }
+    }
+
+    .warning-box {
+      background: rgba(255, 0, 0, 0.2);
+      border: 1px solid red;
+      padding: 10px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-screen" id="loginScreen">
+    <h2 class="colorful-text">Connexion VIP</h2>
+    <input type="text" id="username" placeholder="Nom d'utilisateur">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <button onclick="login()">Entrer</button>
+  </div>
+
+  <div class="main-site" id="mainSite">
+    <img src="https://i.ibb.co/v65bzrJK/file-00000000d0a06246a566be7eb3dffa80.png" alt="Avion" class="avion-img">
+    <div class="prediction-box colorful-text" id="predictionBox">
+      <div>🚀 Crash Prediction 🚀</div>
+      <div id="predictionContent">
+        Cliquez sur "Prédire" pour générer une prédiction.
+      </div>
+    </div>
+    <button onclick="generatePrediction()">Prédire Crash</button>
+    <div class="warning-box" id="warningBox">Attendez que le tour actuel se termine avant une nouvelle prédiction.</div>
+    <div class="footer">Développé par Rebelle, masque hacker de la cyber criminalité</div>
+  </div>
+
+  <script>
+    const user = 'rebelle';
+    const pass = '05251834';
+
+    function login() {
+      const inputUser = document.getElementById('username').value;
+      const inputPass = document.getElementById('password').value;
+      if (inputUser === user && inputPass === pass) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainSite').style.display = 'flex';
+      } else {
+        alert('Nom d\'utilisateur ou mot de passe incorrect.');
+      }
+    }
+
+    let lastClick = 0;
+
+    function generatePrediction() {
+      const now = new Date();
+      const next = new Date(now.getTime() + (Math.floor(Math.random() * 3 + 2) * 60000));
+
+      const hour = String(next.getHours()).padStart(2, '0');
+      const minute = String(next.getMinutes()).padStart(2, '0');
+      const predictionTime = `${hour}:${minute}`;
+
+      const cote = (Math.random() * 9 + 2).toFixed(2);
+      const assurance = Math.min((Math.random() * 3 + 1).toFixed(2), 4.99);
+
+      if (Date.now() - lastClick < 10000) {
+        document.getElementById('warningBox').style.display = 'block';
+        return;
+      } else {
+        document.getElementById('warningBox').style.display = 'none';
+        lastClick = Date.now();
+      }
+
+      document.getElementById('predictionContent').innerHTML = `
+        ┏━━━━━━━━━━━━━<br>
+        ┠⭓➤𝐇𝐄𝐔𝐑𝐄 : ${predictionTime} ⏰<br><br>
+        ┠⭓➤𝐂𝐎𝐓𝐄 : ${cote}X+ 🚀<br><br>
+        ┠⭓➤𝐀𝐒𝐒𝐔𝐑𝐀𝐍𝐂𝐄 : ${assurance}X+ ✅<br>
+        ┗━━━━━━━━━━━━━<br><br>
+        <button style='background: #ffcc00; padding: 10px; border-radius: 8px;'>S'INSCRIRE SUR 1XBET REBELLE</button>
+      `;
+    }
+  </script>
+</body>
+  </html>
+  
